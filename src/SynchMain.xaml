@@ -6,7 +6,68 @@
         xmlns:local="clr-namespace:MySynchFiles"
         mc:Ignorable="d"
         Title="SynchMain" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Component/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <ListView ItemsSource="{Binding}" SelectionMode="Single" AllowDrop="True" >
+        <ListView.ItemContainerStyle >
+            <Style TargetType="ListViewItem" >
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ContentControl}">
+                            <Border BorderBrush="Transparent" BorderThickness="1" Background="{TemplateBinding Background}">
+                                <GridViewRowPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ListView.ItemContainerStyle>
+
+        <ListView.Resources>
+            <Style x:Key="{x:Type GridViewColumnHeader}" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Background" Value="{StaticResource ListViewTitleBackGround}"/>
+            </Style>
+        </ListView.Resources>
         
-    </Grid>
+        <ListView.View>
+            <GridView>
+                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                    <GridViewColumnHeader Content="Target" FontSize="{StaticResource DefaultFonSize}"  Padding="5" Background="{StaticResource ListViewTitleBackGround}"/>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Target}" VerticalAlignment="Center" Padding="5" FontSize="{StaticResource DefaultFonSize}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                    <GridViewColumnHeader Content="Check" FontSize="{StaticResource DefaultFonSize}"  Padding="5"/>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Check}" VerticalAlignment="Center" Padding="5" FontSize="{StaticResource DefaultFonSize}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                    <GridViewColumnHeader Content="Update" FontSize="{StaticResource DefaultFonSize}"  Padding="5"/>
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding Update}" VerticalAlignment="Center" Padding="5" FontSize="{StaticResource DefaultFonSize}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+            </GridView>
+        </ListView.View>
+    </ListView>
 </Window>

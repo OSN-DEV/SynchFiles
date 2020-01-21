@@ -37,6 +37,10 @@
   <PropertyGroup>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MyLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=12196d41538ace27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -48,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,12 +72,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Component\CustomContextMenu.cs" />
+    <Compile Include="Data\AppRepository.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SynchMain.xaml.cs">
       <DependentUpon>SynchMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\AppCommon.cs" />
+    <Compile Include="Util\Constant.cs" />
+    <Compile Include="Util\NativeMethods.cs" />
     <Page Include="Component\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,8 +132,6 @@
     <Content Include="Libs\MyLib.dll" />
     <Content Include="Libs\MyLib.File.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
