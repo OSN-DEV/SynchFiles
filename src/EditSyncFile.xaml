@@ -1,0 +1,46 @@
+﻿<Window x:Class="MySynchFiles.EditSyncFile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:u="clr-namespace:MySynchFiles.Component"
+        xmlns:local="clr-namespace:MySynchFiles"
+        mc:Ignorable="d"
+        Title="EditSyncFile" Height="450" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Component/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="file" Grid.Row="0" Grid.Column="0" />
+        <u:CustomTextBox Text="{Binding DisplayName}" Grid.Row="0" Grid.Column="1"/>
+
+        <TextBlock Text="local" Grid.Row="1" Grid.Column="0" />
+        <u:CustomTextBox Text="{Binding LocalFile}" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Text="server" Grid.Row="2" Grid.Column="0" />
+        <u:CustomTextBox Text="{Binding ServerFile}" Grid.Row="2" Grid.Column="1"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1">
+            <Button Content="OK" Style="{StaticResource LabelButton}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OK_Click" IsDefault="True" />
+            <Button Content="Cancel" Style="{StaticResource LabelButton}" HorizontalAlignment="Left" VerticalAlignment="Center" IsCancel="True" />
+        </StackPanel>
+
+    </Grid>
+</Window>

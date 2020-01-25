@@ -7,7 +7,7 @@ using MyLib.Data;
 using MySynchFiles.Util;
 
 namespace MySynchFiles.Data {
-    class AppRepository : AppDataBase<AppRepository> {
+    public class AppRepository : AppDataBase<AppRepository> {
 
         #region Declaration   
         public class Location {
@@ -16,6 +16,8 @@ namespace MySynchFiles.Data {
         }
         public Location Pos { set; get; } = new Location();
         public int Page { set; get; } = 0;
+
+        public List<SyncFileDataModel> SyncFiles { set; get; } = new List<SyncFileDataModel>();
         #endregion
 
         #region Public Method

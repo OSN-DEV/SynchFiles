@@ -8,6 +8,7 @@
     <SolidColorBrush x:Key="ListViewTitleBackGround" Color="#4F6180"/>
     <system:Double x:Key="DefaultFonSize">14.0</system:Double>
     <FontFamily x:Key="DefaultFontFamily" >Meiryo UI</FontFamily>
+    <SolidColorBrush x:Key="DefaultTextForeground" Color="#333333"/>
 
 
 
@@ -18,7 +19,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContentControl}">
                     <Grid>
-                        <Border BorderBrush="#EEEEEE" BorderThickness="1" Background="{TemplateBinding Background}" Width="{TemplateBinding Width}" >
+                        <Border BorderBrush="#EEEEEE" BorderThickness="0" Background="{TemplateBinding Background}" Width="{TemplateBinding Width}" >
                             <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5" TextAlignment="Center" />
                         </Border>
                     </Grid>
@@ -26,82 +27,6 @@
 
             </Setter.Value>
         </Setter>
-    </Style>
-
-
-
-
-
-    <SolidColorBrush x:Key="DefaultTextForeground" Color="#333333"/>
-
-
-
-
-
-
-
-
-
-    <!--Common Style-->
-    <Style TargetType="TextBlock" >
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-    
-    <Style TargetType="CheckBox" >
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-    </Style>
-
-    <Style TargetType="RadioButton" >
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-    </Style>
-    
-    <Style TargetType="TabControl">
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="12.0" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-    </Style>
-
-    <Style TargetType="TextBox" x:Key="BaseTextBoxStyle">
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-        <Setter Property="BorderThickness" Value="0,0,0,1" />
-        <Setter Property="BorderBrush" Value="#EEEEEE" />
-        <Setter Property="Margin" Value="3,4" />
-    </Style>
-    <Style TargetType="component:CustomTextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
-    
-    <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
-    
-    <Style TargetType="ListViewItem">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
-        <Setter Property="Margin" Value="5,0" />
-    </Style>
-
-    <Style TargetType="Button">
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
-        <Setter Property="Margin" Value="5,10,5,0" />
-        <Setter Property="Padding" Value="0,5" />
-    </Style>
-    
- 
-
-
-
-
-    <Style TargetType="TextBox" x:Key="TextAreaStyle" BasedOn="{StaticResource BaseTextBoxStyle}">
-        <Setter Property="BorderThickness" Value="1,1,1,1" />
     </Style>
 
     <Style x:Key="LabelButton" TargetType="Button">
@@ -131,6 +56,78 @@
                 <Setter Property="Foreground" Value="Gainsboro" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="BaseTextBoxStyle">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="BorderBrush" Value="#75A8FF" />
+        <Setter Property="Margin" Value="3,4" />
+    </Style>
+    <Style TargetType="component:CustomTextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
+
+    <Style TargetType="TextBlock" >
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+
+
+
+
+
+
+    <!--Common Style-->
+
+    
+    <Style TargetType="CheckBox" >
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+    </Style>
+
+    <Style TargetType="RadioButton" >
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+    </Style>
+    
+    <Style TargetType="TabControl">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="12.0" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+    </Style>
+
+
+    
+    <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
+    
+    <Style TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextForeground}" />
+        <Setter Property="Margin" Value="5,0" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFonSize}" />
+        <Setter Property="Margin" Value="5,10,5,0" />
+        <Setter Property="Padding" Value="0,5" />
+    </Style>
+    
+ 
+
+
+
+
+    <Style TargetType="TextBox" x:Key="TextAreaStyle" BasedOn="{StaticResource BaseTextBoxStyle}">
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
     </Style>
 
     <Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
