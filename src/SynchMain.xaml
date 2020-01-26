@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MySynchFiles"
         mc:Ignorable="d"
-        Title="SynchMain" Height="450" Width="550">
+        Title="SynchMain" Height="450" Width="510">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <ListView Name="cSyncFiles" ItemsSource="{Binding}" SelectionMode="Single" AllowDrop="True" ContextMenuOpening="cSyncFiles_ContextMenuOpening" >
+    <ListView Name="cSyncFiles" ItemsSource="{Binding}" SelectionMode="Single" AllowDrop="True" ContextMenuOpening="cSyncFiles_ContextMenuOpening" Drop="cSyncFiles_Drop" >
         <ListView.ItemContainerStyle >
             <Style TargetType="ListViewItem" >
                 <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -50,12 +50,12 @@
                         <DataTemplate>
                             <Grid>
                                 <TextBlock Text="{Binding DisplayName}" Padding="5" FontSize="{StaticResource DefaultFonSize}" 
-                                           HorizontalAlignment="Stretch" Background="AliceBlue" VerticalAlignment="Center" />
+                                           HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" Width="130">
+                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" Width="75">
                     <GridViewColumnHeader Content="Check" FontSize="{StaticResource DefaultFonSize}"  Padding="5"/>
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
@@ -65,7 +65,7 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" Width="140">
+                <GridViewColumn  HeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" Width="160">
                     <GridViewColumnHeader Content="Update" FontSize="{StaticResource DefaultFonSize}"  Padding="5"/>
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>

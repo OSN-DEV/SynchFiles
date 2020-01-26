@@ -33,7 +33,6 @@ namespace MySynchFiles {
         public void OK_Click(object sender, EventArgs e) {
             this.DialogResult = true;
         }
-
         #endregion
     }
 }

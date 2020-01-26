@@ -6,7 +6,7 @@
         xmlns:u="clr-namespace:MySynchFiles.Component"
         xmlns:local="clr-namespace:MySynchFiles"
         mc:Ignorable="d"
-        Title="EditSyncFile" Height="450" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight">
+        Title="EditSyncFile" Height="450" Width="400" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" SizeToContent="Height">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,26 +16,25 @@
     </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="110"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="40"/>
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="file" Grid.Row="0" Grid.Column="0" />
+        <TextBlock Text="display name" Grid.Row="0" Grid.Column="0" />
         <u:CustomTextBox Text="{Binding DisplayName}" Grid.Row="0" Grid.Column="1"/>
 
         <TextBlock Text="local" Grid.Row="1" Grid.Column="0" />
-        <u:CustomTextBox Text="{Binding LocalFile}" Grid.Row="1" Grid.Column="1"/>
+        <u:CustomTextBox Text="{Binding LocalFile}" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWithOverflow"/>
 
         <TextBlock Text="server" Grid.Row="2" Grid.Column="0" />
-        <u:CustomTextBox Text="{Binding ServerFile}" Grid.Row="2" Grid.Column="1"/>
+        <u:CustomTextBox Text="{Binding ServerFile}" Grid.Row="2" Grid.Column="1" TextWrapping="WrapWithOverflow"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1">
             <Button Content="OK" Style="{StaticResource LabelButton}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OK_Click" IsDefault="True" />

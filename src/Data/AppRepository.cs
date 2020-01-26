@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyLib.Data;
 using MySynchFiles.Util;
+using System.Collections.ObjectModel;
 
 namespace MySynchFiles.Data {
     public class AppRepository : AppDataBase<AppRepository> {
@@ -17,7 +18,7 @@ namespace MySynchFiles.Data {
         public Location Pos { set; get; } = new Location();
         public int Page { set; get; } = 0;
 
-        public List<SyncFileDataModel> SyncFiles { set; get; } = new List<SyncFileDataModel>();
+        public ObservableCollection<SyncFileDataModel> SyncFiles { set; get; } = new ObservableCollection<SyncFileDataModel>();
         #endregion
 
         #region Public Method

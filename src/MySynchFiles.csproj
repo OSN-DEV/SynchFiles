@@ -75,12 +75,11 @@
     <Compile Include="Component\CustomContextMenu.cs" />
     <Compile Include="Component\Extensions.cs" />
     <Compile Include="Data\AppRepository.cs" />
+    <Compile Include="Data\BindableBase.cs" />
     <Compile Include="Data\SyncFileDataModel.cs" />
+    <Compile Include="Data\SyncTask.cs" />
     <Compile Include="EditSyncFile.xaml.cs">
       <DependentUpon>EditSyncFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SynchMain.xaml.cs">
       <DependentUpon>SynchMain.xaml</DependentUpon>
@@ -98,10 +97,6 @@
     </Compile>
     <Compile Include="Component\CustomTextBox.cs" />
     <Page Include="EditSyncFile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

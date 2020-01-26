@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using MySynchFiles.Component;
 using System.Collections.ObjectModel;
 using MySynchFiles.Data;
+using MyLib.File;
+
 namespace MySynchFiles {
 
 
@@ -23,8 +25,8 @@ namespace MySynchFiles {
     public partial class SynchMain : Window {
 
         #region Declaration
+        private bool _isSynch = false;
         private readonly System.Windows.Forms.NotifyIcon _notifyIcon = new System.Windows.Forms.NotifyIcon();
-        private ObservableCollection<SyncFileDataModel> _model;
         private CustomContextMenu _synchFilesMenu = new CustomContextMenu();
         private AppRepository _appData = null;
         private enum ListMenuItemId : int {
@@ -89,6 +91,29 @@ namespace MySynchFiles {
             this._synchFilesMenu.SetMenuItemEnabled((int)ListMenuItemId.Edit, isItemSelected);
             this._synchFilesMenu.SetMenuItemEnabled((int)ListMenuItemId.Delete, isItemSelected);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cSyncFiles_Drop(object sender, DragEventArgs e) {
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files)) {
+                return;
+            }
+            var model = new SyncFileDataModel();
+            var file = new FileOperator(files[0]);
+            Task.Run(() => {
+                Application.Current.Dispatcher.Invoke(() => {
+                    model.DisplayName = file.NameWithoutExtension;
+                    model.LocalFile = file.FilePath;
+                    if (ShowEditSynchFile(model)) {
+                        this._appData.SyncFiles.Add(model);
+                        this._appData.Save();
+                    }
+                });
+            });
+        }
         #endregion
 
         #region Private Method
@@ -110,21 +135,7 @@ namespace MySynchFiles {
             }
 
             // restore data
-            this._model = new ObservableCollection<SyncFileDataModel>();
-            foreach(var model in this._appData.SyncFiles) {
-                this._model.Add(new SyncFileDataModel() {
-                    DisplayName = model.DisplayName,
-                    LocalFile = model.LocalFile,
-                    ServerFile = model.ServerFile
-                });
-            }
-
-            this._model.Add(new SyncFileDataModel() {
-                DisplayName = "xxx",
-                UpdateDateTime= "2019/01/11 12:12 ↑",
-                 CheckDateTime ="2019/01/11 12:13"
-            });
-            this.cSyncFiles.DataContext = this._model;
+            this.cSyncFiles.DataContext = this._appData.SyncFiles;
 
             // create context menu
             this.CreateContextMenu();
@@ -203,7 +214,16 @@ namespace MySynchFiles {
         /// <param name="model"></param>
         /// <returns></returns>
         private bool ShowEditSynchFile(SyncFileDataModel model) {
-            return new EditSyncFile(this, model).ShowDialog() ?? false;
+            var result =  new EditSyncFile(this, model).ShowDialog() ?? false;
+            if (result & !this._isSynch) {
+                this._isSynch = true;
+                new SyncTask().Start(this.SyncComplete,  model);
+            }
+            return result;
+        }
+
+        private void SyncComplete() {
+            this._isSynch = false;
         }
         #endregion
 
