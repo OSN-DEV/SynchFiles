@@ -51,7 +51,8 @@ namespace MySynchFiles.Data {
             model.CheckDateTime = DateTime.Now.ToString("HH:mm:ss");
             var src = new FileOperator(model.LocalFile);
             var dest = new FileOperator(model.ServerFile);
-            if (null == src && null == dest) {
+            if ((null == src || !src.Exists()) && (null == dest || !dest.Exists())) {
+                model.UpdateDateTime = "x";
                 return;
             }
 

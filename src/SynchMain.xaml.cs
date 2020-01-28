@@ -15,6 +15,7 @@ using MySynchFiles.Component;
 using System.Collections.ObjectModel;
 using MySynchFiles.Data;
 using MyLib.File;
+using System.Windows.Threading;
 
 namespace MySynchFiles {
 
@@ -25,6 +26,7 @@ namespace MySynchFiles {
     public partial class SynchMain : Window {
 
         #region Declaration
+        private DispatcherTimer _timer = new DispatcherTimer();
         private bool _isSynch = false;
         private readonly System.Windows.Forms.NotifyIcon _notifyIcon = new System.Windows.Forms.NotifyIcon();
         private CustomContextMenu _synchFilesMenu = new CustomContextMenu();
@@ -114,6 +116,63 @@ namespace MySynchFiles {
                 });
             });
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_KeyDown(object sender, KeyEventArgs e) {
+            switch(e.Key) {
+                case Key.Escape:
+                    e.Handled = true;
+                    this.SetWindowsState(true);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Tick(object sender, EventArgs e) {
+            this._timer.Stop();
+            this._isSynch = true;
+            new SyncTask().Start(this.SyncComplete, this._appData.SyncFiles);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NotifyMenuSynchNow_Click(object sender, EventArgs e) {
+            if (this._isSynch) {
+                return;
+            }
+            this._isSynch = true;
+            this._timer.Stop();
+            new SyncTask().Start(this.SyncComplete, this._appData.SyncFiles);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NotifyMenuShow_Click(object sender, EventArgs e) {
+            this.SetWindowsState(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NotifyMenuExit_Click(object sender, EventArgs e) {
+            this.Close();
+        }
         #endregion
 
         #region Private Method
@@ -140,7 +199,19 @@ namespace MySynchFiles {
             // create context menu
             this.CreateContextMenu();
             this.cSyncFiles.ContextMenu = this._synchFilesMenu;
+
+            // prepare timer
+            this._timer.Interval = new TimeSpan(0, 1, 0);
+            this._timer.Tick += Timer_Tick;
+
+            // start initial sync
+            this._isSynch = true;
+            new SyncTask().Start(this.SyncComplete, this._appData.SyncFiles);
+
+            // Prepare Nofity
+            this.SetUpNotifyIcon();
         }
+
 
         /// <summary>
         /// Create context menu for CategoryList
@@ -172,23 +243,31 @@ namespace MySynchFiles {
         /// set up notify icon
         /// </summary>
         private void SetUpNotifyIcon() {
-            //this._notifyIcon.Text = "My Synch FIles";
-            //this._notifyIcon.Icon = new System.Drawing.Icon("app.ico");
-            //var menu = new System.Windows.Forms.ContextMenuStrip();
-            //var menuItemShow = new System.Windows.Forms.ToolStripMenuItem {
-            //    Text = "show",
-            //};
-            //menuItemShow.Click += this.NotifyMenuShow_Click;
-            //menu.Items.Add(menuItemShow);
+            this._notifyIcon.Text = "My Synch Files";
+            this._notifyIcon.Icon = new System.Drawing.Icon("app.ico");
+            var menu = new System.Windows.Forms.ContextMenuStrip();
 
-            //var menuItemExit = new System.Windows.Forms.ToolStripMenuItem {
-            //    Text = "exit"
-            //};
-            //menuItemExit.Click += this.NotifyMenuExit_Click;
-            //menu.Items.Add(menuItemExit);
+            var menuItemSyncNow = new System.Windows.Forms.ToolStripMenuItem {
+                Text = "Sync Now",
+            };
+            menuItemSyncNow.Click += this.NotifyMenuSynchNow_Click;
+            menu.Items.Add(menuItemSyncNow);
 
-            //this._notifyIcon.ContextMenuStrip = menu;
-            //this._notifyIcon.Visible = false;
+
+            var menuItemShow = new System.Windows.Forms.ToolStripMenuItem {
+                Text = "show",
+            };
+            menuItemShow.Click += this.NotifyMenuShow_Click;
+            menu.Items.Add(menuItemShow);
+
+            var menuItemExit = new System.Windows.Forms.ToolStripMenuItem {
+                Text = "exit"
+            };
+            menuItemExit.Click += this.NotifyMenuExit_Click;
+            menu.Items.Add(menuItemExit);
+
+            this._notifyIcon.ContextMenuStrip = menu;
+            this._notifyIcon.Visible = false;
         }
 
         /// <summary>
@@ -216,6 +295,7 @@ namespace MySynchFiles {
         private bool ShowEditSynchFile(SyncFileDataModel model) {
             var result =  new EditSyncFile(this, model).ShowDialog() ?? false;
             if (result & !this._isSynch) {
+                this._timer.Stop();
                 this._isSynch = true;
                 new SyncTask().Start(this.SyncComplete,  model);
             }
@@ -224,9 +304,9 @@ namespace MySynchFiles {
 
         private void SyncComplete() {
             this._isSynch = false;
+            this._timer.Start();
         }
         #endregion
-
     }
 
 }

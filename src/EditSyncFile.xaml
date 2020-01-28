@@ -6,7 +6,7 @@
         xmlns:u="clr-namespace:MySynchFiles.Component"
         xmlns:local="clr-namespace:MySynchFiles"
         mc:Ignorable="d"
-        Title="EditSyncFile" Height="450" Width="400" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" SizeToContent="Height">
+        Title="EditSyncFile" Height="450" Width="400" WindowStyle="ToolWindow" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" SizeToContent="Height">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
