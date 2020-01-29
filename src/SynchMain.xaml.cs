@@ -47,6 +47,20 @@ namespace MySynchFiles {
 
         #region Event
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            if (this.WindowState == WindowState.Normal) {
+                this._appData.Pos.X = this.Left;
+                this._appData.Pos.Y = this.Top;
+                this._appData.Save();
+            }
+        }
+
+
+        /// <summary>
         /// list context menu add click
         /// </summary>
         /// <param name="sender"></param>
@@ -201,7 +215,7 @@ namespace MySynchFiles {
             this.cSyncFiles.ContextMenu = this._synchFilesMenu;
 
             // prepare timer
-            this._timer.Interval = new TimeSpan(0, 1, 0);
+            this._timer.Interval = new TimeSpan(0, 5, 0);
             this._timer.Tick += Timer_Tick;
 
             // start initial sync
@@ -248,7 +262,7 @@ namespace MySynchFiles {
             var menu = new System.Windows.Forms.ContextMenuStrip();
 
             var menuItemSyncNow = new System.Windows.Forms.ToolStripMenuItem {
-                Text = "Sync Now",
+                Text = "synch",
             };
             menuItemSyncNow.Click += this.NotifyMenuSynchNow_Click;
             menu.Items.Add(menuItemSyncNow);
