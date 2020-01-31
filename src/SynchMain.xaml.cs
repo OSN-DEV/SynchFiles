@@ -42,6 +42,10 @@ namespace MySynchFiles {
         public SynchMain() {
             InitializeComponent();
             this.Initialize();
+
+            this.Loaded += (sender, e) => {
+                this.SetWindowsState(true);
+            };
         }
         #endregion
 
