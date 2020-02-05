@@ -48,7 +48,6 @@ namespace MySynchFiles.Data {
         /// </summary>
         /// <param name="model"></param>
         private void Sync(SyncFileDataModel model) {
-            model.UpdateDateTime = "";
             model.CheckDateTime = DateTime.Now.ToString("HH:mm:ss");
             var src = new FileOperator(model.LocalFile);
             var dest = new FileOperator(model.ServerFile);

@@ -200,6 +200,12 @@ namespace MySynchFiles {
         private void Initialize() {
             this._appData = AppRepository.GetInstance();
 
+            // clear modify date
+            foreach(var file in this._appData.SyncFiles) {
+                file.UpdateDateTime = "";
+            }
+            this._appData.Save();
+
             // restore window pos
             var x = MyLib.Util.Common.GetWindowPosition(this._appData.Pos.X, this.Width, SystemParameters.VirtualScreenWidth);
             var y = MyLib.Util.Common.GetWindowPosition(this._appData.Pos.X, this.Height, SystemParameters.VirtualScreenHeight);
